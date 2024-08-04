@@ -51,6 +51,3 @@ def get_market_analysis_generator(session_id):
 @app.get("/retrieve-mvp-builder")
 def get_mvp_builder(session_id):
     return [i for i in collection.find({"module":"mvp builder","session_id":session_id})][-1]
-
-
-

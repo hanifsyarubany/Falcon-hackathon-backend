@@ -1,0 +1,8 @@
+Timestamp,User ID,Age,Gender,Occupation,Salary,Skin Type,Concerns,Satisfaction with Recommendations (1-5),Ease of Use (1-5),Likelihood to Recommend (1-10),Feedback
+2024-08-01 10:00:00,1,25,Female,Student,35000,Oily,Acne,4,5,8,"Great recommendations, helped with my acne."
+2024-08-01 10:15:00,2,30,Female,Working Professional,60000,Dry,Dryness,5,4,9,Loved the product suggestions for dry skin.
+2024-08-01 10:30:00,3,28,Female,Stay-at-home Mom,40000,Combination,Aging,3,4,7,Wish there were more options for combination skin.
+2024-08-01 10:45:00,4,22,Female,Student,30000,Sensitive,Redness,4,3,6,The app is a bit slow sometimes.
+2024-08-01 11:00:00,5,35,Female,Working Professional,75000,Normal,Dullness,5,5,10,Perfect! Found my new favorite products.
+2024-08-01 11:15:00,6,29,Female,Working Professional,50000,Oily,Sensitivity,2,2,3,The recommendations didn’t work well for my sensitive skin. The app needs improvement.
+2024-08-01 11:30:00,7,31,Female,Stay-at-home Mom,45000,Dry,Redness,3,3,5,"Some recommendations were okay, but overall the app is confusing."

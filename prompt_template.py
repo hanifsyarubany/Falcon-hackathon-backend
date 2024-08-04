@@ -227,6 +227,8 @@ user_prompt_pick_competitors = """
 ### TEXT: <<text>>
 ### ANSWER: 
 """
+
+# ======================== MVP BUILDER ========================
 # PROMPT TEMPLATE: for building MVP
 system_prompt_mvp = """
 You are a startup specialist.
@@ -242,18 +244,34 @@ user_prompt_mvp = """
 ### ANSWER:
 """
 
-# ======================== MVP BUILDER ========================
-# PROMPT TEMPLATE: for building MVP
-system_prompt_mvp = """
+# ======================== FEEDBACK ANALYZER ========================
+# PROMPT TEMPLATE: for building Feedback Analyzer = Giving Suggestion
+system_prompt_feedback_analyzer = """
 You are a startup specialist.
-User has provided his starup idea, goal,  problem statement, and persona demographics to you. 
-Based on these, please mention core features of the MVP that he should develop. 
+Provided to you, MVP features and Feedback Form of the users who test the MVP.
+Based on the feedback form from users, you need to give the suggestions of improvement for MVP iteration. 
+You may mention what features need to be improved, how it should be improved, what features need to be removed, and what are the new functionalities need to be added.
+Please give the response in bulletin points
 """
-user_prompt_mvp = """
-### STARTUP NAME: <<startup_name>>
-### GOAL: <<goal>>
-### PROBLEM STATEMENT: <<problem_statement>>
-### SOLUTION: <<solution>>
-### DEMOGRAPHICS: <<demographics>>
+user_prompt_feedback_analyzer = """
+### MVP_FEATURES: <<mvp>>
+### USERS FEEDBACK: 
+<<feedback>>
+
+### ANSWER:
+"""
+# PROMPT TEMPLATE: for building Feedback Analyzer = Improve MVP
+system_prompt_improve_mvp = """
+You are a startup specialist.
+Provided to you, Previous MVP features and Suggestion of improvement towards the MVP.
+Based on the suggestion, you need to rewrite mvp features by following the suggestion of improvements. 
+"""
+user_prompt_improve_mvp = """
+### PREVIOUS_MVP_FEATURES: 
+<<mvp>>
+
+### SUGGESTION_OF_IMPROVEMENTS: 
+<<suggestion>>
+
 ### ANSWER:
 """

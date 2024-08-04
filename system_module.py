@@ -1,5 +1,6 @@
 from setup import *
 from prompt_template import *
+import pandas as pd
 
 # ========================= SOLUTIONING GENERATOR =========================
 def solutioning_generator(session_id, startup_name, idea_query):
@@ -137,6 +138,48 @@ def mvp_builder(session_id,startup_name,idea):
         "module":"mvp builder",
         "session_id":session_id,
         "mvp_features":mvp_features
+    }
+    # sending to MongoDB
+    collection.insert_one(payload)
+    # return output
+    return payload
+
+# ========================= FEEDBACK ANALYZER =========================
+def structure_converter(dataframe):
+    text = "=====================================================\n"
+    for i in range(dataframe.shape[0]):
+        text += f"===== USER {i+1} =====\n"
+        for col in list(dataframe.columns):
+            data = dataframe.iloc[i,:][col]
+            text += f"{col}: {data}\n"
+        text += "\n=====================================================\n"
+    return text
+def feedback_analyzer(session_id,filepath):
+    # From previous output
+    output_mvp_builder = [i for i in collection.find({"module":"mvp builder","session_id":session_id})][-1]
+    # Read Feedback Form and convert it to the unstructured one
+    feedback_form = pd.read_csv(filepath)
+    unsructured_feedback = structure_converter(feedback_form)
+    # Build suggestion of improvement
+    suggestion_of_improvement = generate_completion(system_prompt_feedback_analyzer,user_prompt_feedback_analyzer.replace("<<mvp>>",output_mvp_builder["mvp_features"]).replace("<<feedback>>",unsructured_feedback)).replace("\n\n","\n")
+    # Build new MVP Features
+    new_mvp_features = generate_completion(system_prompt_improve_mvp,user_prompt_improve_mvp.replace("<<mvp>>","\n".join(output_mvp_builder["mvp_features"].split("\n")[1:])).replace("<<suggestion>>",suggestion_of_improvement))
+    # UPDATE MVP FEATURES
+    # Get payload
+    updated_payload = {
+        "module":"mvp builder",
+        "session_id":session_id,
+        "mvp_features":new_mvp_features
+    }
+    # sending to MongoDB
+    collection.insert_one(updated_payload)
+    
+    # Get output
+    payload = {
+        "module":"feedback analyzer",
+        "session_id":session_id,
+        "suggestion_of_improvement":suggestion_of_improvement,
+        "new_mvp_features":new_mvp_features
     }
     # sending to MongoDB
     collection.insert_one(payload)
